@@ -1,4 +1,5 @@
 import "./rightbar.css"
+import {Online} from "../online/Online";
 
 export const Rightbar = () => {
     return (
@@ -12,76 +13,7 @@ export const Rightbar = () => {
                 <img className="rightbarAd" src="/assets/ad.png" alt=""/>
                 <h4 className="rightbarTitle">Online Friends</h4>
                 <ul className="rightbarFriendList">
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg"
-                                 src="/assets/person/person-1.jpeg"
-                                 alt=""
-                            />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">John Doe</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg"
-                                 src="/assets/person/person-1.jpeg"
-                                 alt=""
-                            />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">John Doe</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg"
-                                 src="/assets/person/person-1.jpeg"
-                                 alt=""
-                            />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">John Doe</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg"
-                                 src="/assets/person/person-1.jpeg"
-                                 alt=""
-                            />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">John Doe</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg"
-                                 src="/assets/person/person-1.jpeg"
-                                 alt=""
-                            />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">John Doe</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg"
-                                 src="/assets/person/person-1.jpeg"
-                                 alt=""
-                            />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">John Doe</span>
-                    </li>
-                    <li className="rightbarFriend">
-                        <div className="rightbarProfileImgContainer">
-                            <img className="rightbarProfileImg"
-                                 src="/assets/person/person-1.jpeg"
-                                 alt=""
-                            />
-                            <span className="rightbarOnline"></span>
-                        </div>
-                        <span className="rightbarUsername">John Doe</span>
-                    </li>
+                    <Online/>
                 </ul>
             </div>
         </div>
