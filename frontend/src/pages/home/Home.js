@@ -1,7 +1,18 @@
+import "./home.css"
+import {Topbar} from "../../components/topbar/Topbar";
+import {Leftbar} from "../../components/leftbar/Leftbar";
+import {Feed} from "../../components/feed/Feed";
+import {Rightbar} from "../../components/rightbar/Rightbar";
+
 export const Home = () => {
     return (
-        <div>
-            This is home page
-        </div>
-    )
-}
+        <>
+            <Topbar/>
+            <div className="homeContainer">
+                <Leftbar/>
+                <Feed/>
+                <Rightbar/>
+            </div>
+        </>
+    );
+};
