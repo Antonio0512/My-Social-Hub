@@ -26,7 +26,7 @@ export const Register = () => {
 
         try {
             await register({username, email, password, password2});
-            navigate("/");
+            navigate("/login");
         } catch (error) {
             setError(error.response.data.detail);
         }

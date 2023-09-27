@@ -16,18 +16,19 @@ export const AuthProvider = ({children}) => {
     };
 
 
-    // const signIn = async (credentials) => {
-    //     try {
-    //         const userData = await userService.singIn(credentials);
-    //         setUser(userData);
-    //     } catch (error) {
-    //         throw error
-    //     }
-    // };
+    const login = async (credentials) => {
+        try {
+            const token = await authService.loginUser(credentials);
+            setToken(token);
+        } catch (error) {
+            throw error
+        }
+    };
 
     const authContextData = {
-        token,
-        register
+        token: token?.access_token,
+        register,
+        login
     };
 
     return (

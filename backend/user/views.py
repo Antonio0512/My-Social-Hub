@@ -1,8 +1,11 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
+
+from backend import auth
 from backend.user import models, schemas, validators, security
 
-def register_user(db: Session, user_data: schemas.UserCreate):
+
+def register_user(user_data: schemas.UserCreate, db: Session):
     try:
         validators.validate_unique_username(user_data.username, db)
         validators.validate_unique_email(user_data.email, db)
@@ -22,3 +25,13 @@ def register_user(db: Session, user_data: schemas.UserCreate):
     db.refresh(new_user)
 
     return new_user
+
+
+def login_user(email: str, password: str, db: Session):
+    user = db.query(models.User).filter(models.User.email == email).first()
+    if not user:
+        return None
+    if not auth.verify_password(password, user.password):
+        return None
+
+    return user

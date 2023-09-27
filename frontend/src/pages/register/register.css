@@ -30,6 +30,7 @@
 
 .registerDesc {
     font-size: 24px;
+    width: 80%;
 }
 
 .registerBox {
@@ -39,7 +40,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .registerInput {

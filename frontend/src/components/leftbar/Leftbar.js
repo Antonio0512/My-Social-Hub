@@ -56,6 +56,7 @@ export const Leftbar = () => {
                 </ul>
                 <button className="leftbarButton">Show More</button>
                 <hr className="leftbarHr"/>
+                <h4 className="leftbarFriendTitle">Close Friends</h4>
                 <ul className="leftbarFriendList">
                     <CloseFriend/>
                 </ul>

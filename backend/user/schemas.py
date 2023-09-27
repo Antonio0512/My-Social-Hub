@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 
 class UserBase(BaseModel):
@@ -17,6 +17,11 @@ class UserCreate(UserBase):
     password2: str
 
 
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+
 class UserUpdate(UserBase):
     pass
 
@@ -28,3 +33,8 @@ class User(UserBase):
 
     class Config:
         from_attributes = True
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
