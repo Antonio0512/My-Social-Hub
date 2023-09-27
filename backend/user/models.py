@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 
-from backend.config import Base
+from backend.database import Base
 
 
 class User(Base):
@@ -11,12 +11,14 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
-    full_name = Column(String)
-    bio = Column(String)
-    profile_picture = Column(String)
-    cover_picture = Column(String)
-    registration_date = Column(DateTime)
+    full_name = Column(String, nullable=True)
+    bio = Column(String, nullable=True)
+    profile_picture = Column(String, nullable=True)
+    cover_picture = Column(String, nullable=True)
+    registration_date = Column(DateTime, nullable=True)
 
     posts = relationship("Post", back_populates="author")
-    friends = relationship("Friendship", back_populates="user")
-
+    friends = relationship(
+        "Friendship",
+        back_populates="user",
+        primaryjoin="User.id == Friendship.user_id")

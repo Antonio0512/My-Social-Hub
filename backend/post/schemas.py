@@ -1,23 +1,19 @@
 from pydantic import BaseModel
 
-
 class PostBase(BaseModel):
     content: str
-    image_url: str
-    creation_date: str
-
+    image_url: str | None
 
 class PostCreate(PostBase):
     pass
 
-
 class PostUpdate(PostBase):
     pass
 
-
-class Post(PostBase):
+class PostResponse(PostBase):
     id: int
+    creation_date: str
     author_id: int
 
-    class Config:
-        orm_mode = True
+class PostInDB(PostResponse):
+    pass
