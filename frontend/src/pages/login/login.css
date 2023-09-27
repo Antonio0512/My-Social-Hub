@@ -65,20 +65,13 @@
     cursor: pointer;
 }
 
-.loginForgot {
+.linkRegister {
     text-align: center;
     color: #1775ee;
+    text-decoration: none;
 }
 
-.loginRegisterButton {
-    width: 50%;
-    align-self: center;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    background-color: #42b72a;
-    color: white;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
+.linkRegister:hover {
+    color: #00bfff;
 }
+
