@@ -5,12 +5,14 @@ import {Login} from "./pages/login/Login";
 import {Register} from "./pages/register/Register";
 import {AuthRouteGuard} from "./routeGuards/authRouteGuard";
 import {AuthProvider} from "./context/autContext";
+import {UsersList} from "./pages/usersList/UsersList";
 
 function App() {
     return (
         <AuthProvider>
             <Routes>
                 <Route path={"/register"} element={<Register/>}/>
+                <Route path={"/users"} element={<UsersList/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route element={<AuthRouteGuard/>}>
                     <Route path={"/profile"} element={<Profile/>}/>

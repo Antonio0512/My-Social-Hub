@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from backend.database import Base, engine
 
@@ -13,6 +14,8 @@ from backend.friendship.models import Friendship
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.include_router(user_router, prefix="/api", tags=["Users"])
 app.include_router(post_router, prefix="/api", tags=["Posts"])

@@ -34,3 +34,21 @@ export const loginUser = async (credentials) => {
         throw error;
     }
 };
+
+
+export const getUsers = async (search, token) => {
+    try {
+        const response = await axios.get(
+            `/users/?q=${search}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

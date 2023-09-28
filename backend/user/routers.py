@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
+from typing import List
+
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 from backend import auth
@@ -32,6 +34,27 @@ def login(
     if not user:
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
-    access_token = auth.create_access_token(data={"sub": user.username})
+    access_token = auth.create_access_token(data={"sub": user.email})
 
     return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.get("/users/{id}", response_model=schemas.User)
+def get_user(
+        user_id: int,
+        _current_user: schemas.User = Depends(auth.get_current_user),
+        db: Session = Depends(get_db)
+):
+    user = views.get_one_user(user_id, db)
+    return user
+
+
+@router.get("/users/", response_model=List[schemas.User])
+def get_users(
+        q: str | None = None,
+        _current_user: schemas.User = Depends(auth.get_current_user),
+        db: Session = Depends(get_db)
+):
+    users = views.get_users(q, db)
+
+    return users
