@@ -5,7 +5,6 @@ import {Navigate, Outlet} from "react-router-dom";
 
 export const AuthRouteGuard = ({children}) => {
     const {token} = useContext(AuthContext);
-
     if (!token) {
         return <Navigate to="/login"/>;
     }

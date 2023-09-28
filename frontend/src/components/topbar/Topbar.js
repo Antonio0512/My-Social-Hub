@@ -7,11 +7,13 @@ import {AuthContext} from "../../context/autContext";
 export const Topbar = () => {
     const navigate = useNavigate();
 
-    const {getUsers, token} = useContext(AuthContext);
-
+    const {getUsers, token, user} = useContext(AuthContext);
     const [searchQuery, setSearchQuery] = useState({
         "search": ""
     });
+
+    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
 
     const onChange = (e) => setSearchQuery({...searchQuery, [e.target.name]: e.target.value});
 
@@ -25,6 +27,10 @@ export const Topbar = () => {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const toggleDropdown = () => {
+        setIsDropdownVisible(!isDropdownVisible);
     };
 
     return (
@@ -65,9 +71,21 @@ export const Topbar = () => {
                         <span className="topbarIconBadge">2</span>
                     </div>
                 </div>
-                <Link to={"/profile"}>
-                    <img src="/assets/person/person-1.jpeg" alt="" className="topbarImg"/>
-                </Link>
+                <div className="profileDropdownContainer">
+                    <img
+                        src="/assets/person/person-1.jpeg"
+                        alt=""
+                        className="topbarImg"
+                        onClick={toggleDropdown}
+                    />
+                    {isDropdownVisible && (
+                        <div className="profileDropdown">
+                            <Link className="profileDropdownItem" to="/profile">Profile</Link>
+                            <Link className="profileDropdownItem" to={`/profile/update/${user.id}`}>Settings</Link>
+                            {/*<button onClick={logout}>Logout</button>*/}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

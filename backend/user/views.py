@@ -44,11 +44,41 @@ def login_user(
     return user
 
 
+def update_user(
+        user_id: int,
+        user_data: schemas.UserUpdate,
+        current_user: schemas.User,
+        db: Session
+):
+    target_user = validators.get_user_by_id(user_id, db)
+
+    if current_user.id != target_user.id:
+        raise HTTPException(status_code=403, detail="You are not authorized!")
+
+    if user_data.email:
+        existing_user = validators.get_user_by_email(user_data.email, db)
+        if existing_user and existing_user.id != target_user.id:
+            raise HTTPException(status_code=400, detail="Email already registered")
+
+    if user_data.username:
+        existing_user = validators.get_user_by_username(user_data.username, db)
+        if existing_user and existing_user.id != target_user.id:
+            raise HTTPException(status_code=400, detail="Username already registered")
+
+    for field, value in user_data.model_dump().items():
+        setattr(target_user, field, value)
+
+    db.commit()
+    db.refresh(target_user)
+
+    return target_user
+
+
 def get_one_user(
         user_id: int,
         db: Session
 ):
-    return _get_user_by_id(user_id, db)
+    return validators.get_user_by_id(user_id, db)
 
 
 def get_users(query: str, db: Session):
@@ -56,18 +86,3 @@ def get_users(query: str, db: Session):
         return db.query(models.User).filter(models.User.username.ilike(f"%{query}%")).all()
     else:
         return db.query(models.User).all()
-
-
-def _get_user_by_id(
-        user_id: int,
-        db: Session
-):
-    if user_id < 0:
-        raise HTTPException(status_code=400, detail="User ID must be a positive number")
-
-    user = db.query(models.User).filter(models.User.id == user_id).first()
-
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    return user

@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from backend import auth
@@ -35,11 +35,32 @@ def login(
         raise HTTPException(status_code=400, detail="Incorrect username or password")
 
     access_token = auth.create_access_token(data={"sub": user.email})
+    user_data = {
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "full_name": user.full_name,
+        "bio": user.bio,
+        "profile_picture": user.profile_picture,
+        "cover_picture": user.cover_picture,
+        "posts": user.posts,
+        "friends": user.friends
+    }
 
-    return {"access_token": access_token, "token_type": "bearer"}
+    return {"user": user_data, "access_token": access_token, "token_type": "bearer"}
 
 
-@router.get("/users/{id}", response_model=schemas.User)
+@router.put("/users/{user_id}", response_model=schemas.User)
+def update_user(
+        user_id: int,
+        user_data: schemas.UserUpdate,
+        current_user: schemas.User = Depends(auth.get_current_user),
+        db: Session = Depends(get_db)
+):
+    return views.update_user(user_id, user_data, current_user, db)
+
+
+@router.get("/users/{user_id}", response_model=schemas.User)
 def get_user(
         user_id: int,
         _current_user: schemas.User = Depends(auth.get_current_user),
@@ -49,7 +70,7 @@ def get_user(
     return user
 
 
-@router.get("/users/", response_model=List[schemas.User])
+@router.get("/users", response_model=List[schemas.User])
 def get_users(
         q: str | None = None,
         _current_user: schemas.User = Depends(auth.get_current_user),

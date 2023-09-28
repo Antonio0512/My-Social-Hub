@@ -5,7 +5,7 @@ import {useLocalStorage} from "../hooks/useLocalStorage";
 export const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({children}) => {
-    const [token, setToken] = useLocalStorage("token", {});
+    const [user, setUser] = useLocalStorage("auth", {});
     const [users, setUsers] = useState([]);
 
     const register = async (credentials) => {
@@ -19,13 +19,20 @@ export const AuthProvider = ({children}) => {
 
     const login = async (credentials) => {
         try {
-            const token = await authService.loginUser(credentials);
-            setToken(token);
+            const user = await authService.loginUser(credentials);
+            setUser(user);
         } catch (error) {
             throw error
         }
     };
 
+    const update = async (credentials, user_id, token) => {
+        try {
+            return await authService.updateUser(credentials, user_id, token);
+        } catch (error) {
+            throw error;
+        }
+    };
 
     const getUsers = async (search, token) => {
         try {
@@ -37,12 +44,22 @@ export const AuthProvider = ({children}) => {
         }
     };
 
+    const getUser = async (user_id, token) => {
+        try {
+            return await authService.getOneUser(user_id, token);
+        } catch (error) {
+            throw error;
+        }
+    };
 
     const authContextData = {
-        token: token?.access_token,
+        user: user?.user,
         users,
+        token: user?.access_token,
         register,
         login,
+        update,
+        getUser,
         getUsers
     };
 

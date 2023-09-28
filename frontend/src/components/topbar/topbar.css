@@ -96,3 +96,29 @@
     object-fit: cover;
     cursor: pointer;
 }
+
+.profileDropdown {
+    position: absolute;
+    top: 100%;
+    right: 1rem;
+    background-color: #f1f1f1;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.profileDropdown.active {
+    display: block;
+}
+
+.profileDropdownItem {
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.profileDropdownItem:hover {
+    background-color: #d3d3d3;
+}

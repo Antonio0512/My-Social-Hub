@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional, Dict
+from typing import List, Optional
 
 
 class UserBase(BaseModel):
@@ -36,5 +36,6 @@ class User(UserBase):
 
 
 class TokenResponse(BaseModel):
+    user: dict
     access_token: str
     token_type: str

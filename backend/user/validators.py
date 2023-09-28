@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from backend.user.models import User
 
@@ -19,9 +20,24 @@ def validate_equal_passwords(password: str, password2: str):
         raise ValueError("Passwords do not match")
 
 
-def _get_user_by_username(username: str, db: Session):
+def get_user_by_username(username: str, db: Session):
     return db.query(User).filter(User.username == username).first()
 
 
-def _get_user_by_email(email: str, db: Session):
+def get_user_by_email(email: str, db: Session):
     return db.query(User).filter(User.email == email).first()
+
+
+def get_user_by_id(
+        user_id: int,
+        db: Session
+):
+    if user_id < 0:
+        raise HTTPException(status_code=400, detail="User ID must be a positive number")
+
+    user = db.query(User).filter(User.id == user_id).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return user
