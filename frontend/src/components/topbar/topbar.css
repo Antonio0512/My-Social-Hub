@@ -112,6 +112,7 @@
 }
 
 .profileDropdownItem {
+    background-color: #f1f1f1;
     padding: 10px 20px;
     color: #333;
     text-decoration: none;

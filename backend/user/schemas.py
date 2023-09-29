@@ -7,6 +7,9 @@ class UserBase(BaseModel):
     email: str
     full_name: Optional[str] = None
     bio: Optional[str] = None
+    current_city: Optional[str] = None
+    birth_place: Optional[str] = None
+    relationship_status: Optional[str] = None
     profile_picture: Optional[str] = None
     cover_picture: Optional[str] = None
     registration_date: Optional[str] = None

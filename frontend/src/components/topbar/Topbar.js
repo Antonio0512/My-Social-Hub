@@ -80,7 +80,7 @@ export const Topbar = () => {
                     />
                     {isDropdownVisible && (
                         <div className="profileDropdown">
-                            <Link className="profileDropdownItem" to="/profile">Profile</Link>
+                            <Link className="profileDropdownItem" to={`/profile/${user.id}`}>Profile</Link>
                             <Link className="profileDropdownItem" to={`/profile/update/${user.id}`}>Settings</Link>
                             {/*<button onClick={logout}>Logout</button>*/}
                         </div>

@@ -1,4 +1,4 @@
-.container {
+.searchContainer {
     max-width: 600px;
     margin: 20px auto;
     background-color: #fff;
@@ -7,33 +7,41 @@
     border-radius: 5px;
 }
 
-h1 {
-    font-size: 24px;
-    margin: 0;
+.searchTitle {
+    text-align: center;
+    font-size: 32px;
+    margin: 50px 0;
 }
 
 
-.results {
+.searchResults {
     margin-top: 20px;
 }
 
-.user {
+.searchUserBox {
+    background-color: #f1f1f1;
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px 0;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     border-radius: 5px;
 }
 
+.searchLink {
+    text-decoration: none;
+    color: inherit;
+}
 
-.user img {
+
+.searchProfilePic {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     margin-right: 10px;
 }
 
-.user p {
+.searchUsername {
     margin: 0;
 }

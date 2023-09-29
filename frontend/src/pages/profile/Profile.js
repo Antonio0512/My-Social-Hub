@@ -3,8 +3,12 @@ import {Topbar} from "../../components/topbar/Topbar";
 import {Leftbar} from "../../components/leftbar/Leftbar";
 import {Feed} from "../../components/feed/Feed";
 import {ProfileRightbar} from "../../components/rightbar/ProfileRightBar";
+import {useContext} from "react";
+import {AuthContext} from "../../context/autContext";
 
 export const Profile = () => {
+    const {user} = useContext(AuthContext);
+
     return (
         <>
             <Topbar/>
@@ -17,8 +21,18 @@ export const Profile = () => {
                             <img className="profileUserImg" src="/assets/person/person-1.jpeg" alt=""/>
                         </div>
                         <div className="profileInfo">
-                            <h4 className="profileInfoName">Antonio Boyanov</h4>
-                            <span className="profileInfoDesc">Description for testing purposes.</span>
+                            {user.full_name
+                                ?
+                                (<h4 className="profileInfoName">{user.full_name}</h4>)
+                                :
+                                (<h4 className="profileInfoName">{user.username}</h4>)
+                            }
+                            {user.bio
+                                ?
+                                (<span className="profileInfoDesc">{user.bio}</span>)
+                                :
+                                (<span className="profileInfoDesc">No description</span>)
+                            }
                         </div>
                     </div>
                     <div className="profileRightBottom">

@@ -21,8 +21,8 @@ export const Post = () => {
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">
-                        <img className="likeIcon" src="/assets/like.png" alt=""/>
-                        <img className="likeIcon" src="/assets/heart.png" alt=""/>
+                        <img className="likeIcon" src="/assets/icons/like.png" alt=""/>
+                        <img className="likeIcon" src="/assets/icons/heart.png" alt=""/>
                         <span className="postLikeCounter">32 people like it</span>
                     </div>
                     <div className="postBottomRight">

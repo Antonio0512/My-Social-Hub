@@ -49,7 +49,7 @@ export const ProfileUpdate = () => {
 
         try {
             await update(formData, user.id, token);
-            navigate("/profile");
+            navigate(`/profile/${user.id}`);
         } catch (error) {
             setError(error.response.data.detail);
         }
@@ -65,7 +65,10 @@ export const ProfileUpdate = () => {
                         <span className="profileUpdateDesc">Let people know more about you</span>
                     </div>
                     <div className="profileUpdateRight">
-                        <form className="profileUpdateBox" onSubmit={(e) => onSubmit(e)}>
+                        <form className="profileUpdateBox"
+                              method="post"
+                              onSubmit={(e) => onSubmit(e)}
+                        >
                             <input placeholder="Username"
                                    className="profileUpdateInput"
                                    type="text"
@@ -102,8 +105,8 @@ export const ProfileUpdate = () => {
                                    autoComplete="text"
                             />
                             <label htmlFor="profile_picture">Profile Picture:
-                                <input placeholder="Profile Picture"
-                                       className="profileUpdateInput"
+                                <input className="profileUpdateInput"
+                                       placeholder="Select a file"
                                        type="file"
                                        id="profile_picture"
                                        name="profile_picture"
@@ -114,8 +117,8 @@ export const ProfileUpdate = () => {
                             </label>
 
                             <label htmlFor="cover_picture">Cover Picture:
-                                <input placeholder="Cover Picture"
-                                       className="profileUpdateInput"
+                                <input className="profileUpdateInput"
+                                       placeholder="Select a file"
                                        type="file"
                                        id="cover_picture"
                                        name="cover_picture"
@@ -126,9 +129,9 @@ export const ProfileUpdate = () => {
                             </label>
                             <AuthErrorMessage message={error}/>
 
-                            <button className="profileUpdateButton">Sign Up</button>
-                            <Link className="linkLogin" to={"/login"}>
-                                Log into Account
+                            <button className="profileUpdateButton">Update</button>
+                            <Link className="linkLogin" to={"/"}>
+                                Back to Home
                             </Link>
                         </form>
                     </div>

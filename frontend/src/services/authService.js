@@ -36,16 +36,17 @@ export const loginUser = async (credentials) => {
 };
 
 
-export const updateUser = async (credentials, user_id, token) => {
+export const updateUser = async (formData, user_id, token) => {
     try {
+        console.log(formData)
         const response = await axios.put(
             `/users/${user_id}`,
-            JSON.stringify(credentials),
+            formData,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
+                    "Content-Type": "application/json",
+                },
             }
         );
         return response.data;

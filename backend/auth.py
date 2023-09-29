@@ -22,7 +22,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
-    print(data)
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
@@ -60,5 +59,5 @@ def get_current_user(
         raise HTTPException(status_code=401, detail="JWT token expired: " + str(e))
     except DecodeError as e:
         raise HTTPException(status_code=401, detail="JWT token decoding error: " + str(e))
-    # except Exception:
-    #     raise HTTPException(status_code=401, detail="Could not validate credentials")
+    except Exception:
+        raise HTTPException(status_code=401, detail="Could not validate credentials")

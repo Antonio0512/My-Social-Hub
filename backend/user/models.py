@@ -1,7 +1,13 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.orm import relationship
-
+from enum import Enum
 from backend.database import Base
+
+
+class RelationshipStatus(Enum):
+    married = "married"
+    taken = "taken"
+    single = "single"
 
 
 class User(Base):
@@ -13,6 +19,9 @@ class User(Base):
     password = Column(String)
     full_name = Column(String, nullable=True)
     bio = Column(String, nullable=True)
+    current_city = Column(String, nullable=True)
+    birth_place = Column(String, nullable=True)
+    relationship_status = Column(String, nullable=True)
     profile_picture = Column(String, nullable=True)
     cover_picture = Column(String, nullable=True)
     registration_date = Column(DateTime, nullable=True)
