@@ -1,10 +1,10 @@
-from typing import List
-from fastapi import APIRouter, Depends, HTTPException
+from typing import List, Union
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
 from backend import auth
 from backend.database import get_db
-from backend.user import schemas
+from backend.user import schemas, storage
 from backend.user import views
 
 router = APIRouter()
@@ -52,11 +52,38 @@ def login(
 @router.put("/users/{user_id}", response_model=schemas.User)
 def update_user(
         user_id: int,
-        user_data: schemas.UserUpdate,
+        username: str = Form(...),
+        email: str = Form(...),
+        full_name: str = Form(None),
+        bio: str = Form(None),
+        profile_picture: Union[UploadFile, str] = File(None),
+        cover_picture: Union[UploadFile, str] = File(None),
         current_user: schemas.User = Depends(auth.get_current_user),
         db: Session = Depends(get_db)
 ):
-    return views.update_user(user_id, user_data, current_user, db)
+    if isinstance(profile_picture, str):
+        profile_picture_path = profile_picture
+    else:
+        profile_picture_path = storage.save_image(profile_picture)
+
+    if isinstance(cover_picture, str):
+        cover_picture_path = cover_picture
+    else:
+        cover_picture_path = storage.save_image(cover_picture)
+
+    updated_user = views.update_user(
+        user_id,
+        username,
+        email,
+        full_name,
+        bio,
+        profile_picture_path,
+        cover_picture_path,
+        current_user,
+        db
+    )
+
+    return updated_user
 
 
 @router.get("/users/{user_id}", response_model=schemas.User)

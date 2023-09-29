@@ -16,8 +16,8 @@ export const ProfileUpdate = () => {
         email: "",
         full_name: "",
         bio: "",
-        profile_picture: "",
-        cover_picture: "",
+        profile_picture: null,
+        cover_picture: null,
     });
 
     useEffect(() => {
@@ -39,10 +39,18 @@ export const ProfileUpdate = () => {
         fetchData();
     }, [user.id]);
 
-    const {username, email, full_name, bio, profile_picture, cover_picture} =
-        formData;
+    const {username, email, full_name, bio} = formData;
 
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
+
+    const handleProfilePictureChange = (e) => {
+        setFormData({...formData, profile_picture: e.target.files[0] || null});
+    };
+
+    const handleCoverPictureChange = (e) => {
+        setFormData({...formData, cover_picture: e.target.files[0] || null});
+    };
+
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -68,6 +76,7 @@ export const ProfileUpdate = () => {
                         <form className="profileUpdateBox"
                               method="post"
                               onSubmit={(e) => onSubmit(e)}
+                              encType="multipart/form-data"
                         >
                             <input placeholder="Username"
                                    className="profileUpdateInput"
@@ -106,25 +115,23 @@ export const ProfileUpdate = () => {
                             />
                             <label htmlFor="profile_picture">Profile Picture:
                                 <input className="profileUpdateInput"
-                                       placeholder="Select a file"
                                        type="file"
                                        id="profile_picture"
                                        name="profile_picture"
-                                       value={profile_picture}
-                                       onChange={e => onChange(e)}
-                                       autoComplete="text"
+                                       onChange={(e) => {
+                                           handleProfilePictureChange(e)
+                                       }}
                                 />
                             </label>
 
                             <label htmlFor="cover_picture">Cover Picture:
                                 <input className="profileUpdateInput"
-                                       placeholder="Select a file"
                                        type="file"
                                        id="cover_picture"
                                        name="cover_picture"
-                                       value={cover_picture}
-                                       onChange={e => onChange(e)}
-                                       autoComplete="text"
+                                       onChange={(e) => {
+                                           handleCoverPictureChange(e)
+                                       }}
                                 />
                             </label>
                             <AuthErrorMessage message={error}/>

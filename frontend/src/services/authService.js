@@ -3,7 +3,7 @@ import axios from "axios";
 export const registerUser = async (credentials) => {
     try {
         const response = await axios.post(
-            "/users",
+            "/api/users",
             JSON.stringify(credentials),
             {
                 headers: {
@@ -21,7 +21,7 @@ export const registerUser = async (credentials) => {
 export const loginUser = async (credentials) => {
     try {
         const response = await axios.post(
-            "/login",
+            "/api/login",
             JSON.stringify(credentials),
             {
                 headers: {
@@ -38,17 +38,20 @@ export const loginUser = async (credentials) => {
 
 export const updateUser = async (formData, user_id, token) => {
     try {
-        console.log(formData)
-        const response = await axios.put(
-            `/users/${user_id}`,
-            formData,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-            }
-        );
+        const formDataToSend = new FormData();
+        formDataToSend.append("username", formData.username);
+        formDataToSend.append("email", formData.email);
+        formDataToSend.append("full_name", formData.full_name);
+        formDataToSend.append("bio", formData.bio);
+        formDataToSend.append("profile_picture", formData.profile_picture);
+        formDataToSend.append("cover_picture", formData.cover_picture);
+
+        const response = await axios.put(`/api/users/${user_id}`, formDataToSend, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "multipart/form-data",
+            },
+        });
         return response.data;
     } catch (error) {
         throw error;
@@ -59,7 +62,7 @@ export const updateUser = async (formData, user_id, token) => {
 export const getOneUser = async (user_id, token) => {
     try {
         const response = await axios.get(
-            `/users/${user_id}`,
+            `/api/users/${user_id}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -77,7 +80,7 @@ export const getOneUser = async (user_id, token) => {
 export const getUsers = async (search, token) => {
     try {
         const response = await axios.get(
-            `/users?q=${search}`,
+            `/api/users?q=${search}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,

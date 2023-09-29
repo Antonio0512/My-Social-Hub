@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from fastapi import HTTPException
-
 from backend import auth
 from backend.user import models, schemas, validators, security
 
@@ -46,7 +45,12 @@ def login_user(
 
 def update_user(
         user_id: int,
-        user_data: schemas.UserUpdate,
+        username: str,
+        email: str,
+        full_name: str,
+        bio: str,
+        profile_picture: str,  # Change the type to str for the file path
+        cover_picture: str,    # Change the type to str for the file path
         current_user: schemas.User,
         db: Session
 ):
@@ -55,22 +59,29 @@ def update_user(
     if current_user.id != target_user.id:
         raise HTTPException(status_code=403, detail="You are not authorized!")
 
-    if user_data.email:
-        existing_user = validators.get_user_by_email(user_data.email, db)
+    if email:
+        existing_user = validators.get_user_by_email(email, db)
         if existing_user and existing_user.id != target_user.id:
             raise HTTPException(status_code=400, detail="Email already registered")
 
-    if user_data.username:
-        existing_user = validators.get_user_by_username(user_data.username, db)
+    if username:
+        existing_user = validators.get_user_by_username(username, db)
         if existing_user and existing_user.id != target_user.id:
             raise HTTPException(status_code=400, detail="Username already registered")
 
-    for field, value in user_data.model_dump().items():
-        setattr(target_user, field, value)
+    target_user.username = username
+    target_user.email = email
+    target_user.full_name = full_name
+    target_user.bio = bio
+
+    # Update the user's profile_picture and cover_picture paths
+    target_user.profile_picture = profile_picture
+    target_user.cover_picture = cover_picture
 
     db.commit()
     db.refresh(target_user)
 
+    # Return the updated user data, including the paths
     return target_user
 
 
