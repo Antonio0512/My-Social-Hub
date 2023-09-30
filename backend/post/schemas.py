@@ -24,7 +24,3 @@ class PostResponse(PostBase):
 
     class Config:
         arbitrary_types_allowed = True
-
-
-class PostInDB(PostResponse):
-    pass

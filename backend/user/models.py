@@ -26,7 +26,9 @@ class User(Base):
     cover_picture = Column(String, nullable=True)
     registration_date = Column(DateTime, nullable=True)
 
-    posts = relationship("Post", back_populates="author")
+    posts = relationship(
+        "Post",
+        back_populates="author")
     friends = relationship(
         "Friendship",
         back_populates="user",

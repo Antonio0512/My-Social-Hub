@@ -46,7 +46,7 @@ def get_posts(
     return posts
 
 
-@router.get("/posts/{post_id}/author")
+@router.get("/posts/{post_id}/author", response_model=schemas.User)
 def get_post_author(
         post_id: int,
         _current_user: schemas.User = Depends(get_current_user),
@@ -55,7 +55,7 @@ def get_post_author(
     return views.get_post_author(post_id, db)
 
 
-@router.get("/{user_id}/posts")
+@router.get("/{user_id}/posts", response_model=List[schemas.PostResponse])
 def get_user_posts(
         user_id: int,
         _current_user: schemas.User = Depends(get_current_user),

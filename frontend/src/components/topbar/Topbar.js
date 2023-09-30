@@ -7,7 +7,7 @@ import {AuthContext} from "../../context/autContext";
 export const Topbar = () => {
     const navigate = useNavigate();
 
-    const {getUsers, token, user} = useContext(AuthContext);
+    const {getUsers, token, user, logout} = useContext(AuthContext);
     const [searchQuery, setSearchQuery] = useState({
         "search": ""
     });
@@ -93,7 +93,7 @@ export const Topbar = () => {
                         <div className="profileDropdown">
                             <Link className="profileDropdownItem" to={`/profile/${user.id}`}>Profile</Link>
                             <Link className="profileDropdownItem" to={`/profile/update/${user.id}`}>Settings</Link>
-                            {/*<button onClick={logout}>Logout</button>*/}
+                            <Link className="profileDropdownItem" onClick={logout}>Logout</Link>
                         </div>
                     )}
                 </div>

@@ -43,8 +43,8 @@ def login(
         "bio": user.bio,
         "profile_picture": user.profile_picture,
         "cover_picture": user.cover_picture,
-        "posts": user.posts,
-        "friends": user.friends
+        "posts": [post.id for post in user.posts],
+        "friends": [friend.id for friend in user.friends]
     }
 
     return {"user": user_data, "access_token": access_token, "token_type": "bearer"}
