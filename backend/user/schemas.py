@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict
+from backend.post.schemas import PostResponse
 
 
 class UserBase(BaseModel):
@@ -31,8 +32,8 @@ class UserUpdate(UserBase):
 
 class User(UserBase):
     id: int
-    posts: List[dict] = []
-    friends: List[dict] = []
+    posts: List[PostResponse] = []
+    friends: List[Dict] = []
 
     class Config:
         from_attributes = True

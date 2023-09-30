@@ -30,8 +30,17 @@ export const Profile = () => {
                 <div className="profileRight">
                     <div className="profileRightTop">
                         <div className="profileCover">
-                            <img className="profileCoverImg" src={currUser?.cover_picture} alt=""/>
-                            <img className="profileUserImg" src={currUser?.profile_picture} alt=""/>
+                            {currUser?.cover_picture ?
+                                (<img className="profileCoverImg" src={currUser.cover_picture} alt=""/>)
+                                :
+                                (<img className="profileCoverImg" src="/assets/person/avatar.jpg" alt=""/>)
+                            }
+
+                            {currUser?.profile_picture ?
+                                (<img className="profileUserImg" src={currUser.profile_picture} alt=""/>)
+                                :
+                                (<img className="profileUserImg" src="/assets/person/avatar.jpg" alt=""/>)
+                            }
                         </div>
                         <div className="profileInfo">
                             {currUser?.full_name
@@ -49,7 +58,7 @@ export const Profile = () => {
                         </div>
                     </div>
                     <div className="profileRightBottom">
-                        <Feed/>
+                        <Feed userId={currUser?.id} isProfileFeed={true}/>
                         <ProfileRightbar currUser={currUser}/>
                     </div>
                 </div>

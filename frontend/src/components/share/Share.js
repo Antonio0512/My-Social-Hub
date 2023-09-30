@@ -43,7 +43,12 @@ export const Share = () => {
         >
             <div className="shareWrapper">
                 <div className="shareTop">
-                    <img className="shareProfileImg" src="/assets/person/person-1.jpeg" alt=""/>
+                    {user.profile_picture
+                        ?
+                        (<img className="shareProfileImg" src={user.profile_picture} alt=""/>)
+                        :
+                        (<img className="shareProfileImg" src="/assets/person/avatar.jpg" alt=""/>)
+                    }
                     <input
                         className="shareInput"
                         placeholder="What is in your mind?"

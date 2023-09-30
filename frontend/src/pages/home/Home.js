@@ -10,7 +10,7 @@ export const Home = () => {
             <Topbar/>
             <div className="homeContainer">
                 <Leftbar/>
-                <Feed/>
+                <Feed isProfileFeed={false}/>
                 <Rightbar/>
             </div>
         </>

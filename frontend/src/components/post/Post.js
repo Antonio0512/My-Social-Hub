@@ -1,25 +1,43 @@
 import "./post.css"
 import {MoreVert} from "@mui/icons-material";
+import {useContext, useEffect, useState} from "react";
+import {AuthContext} from "../../context/autContext";
+import {PostContext} from "../../context/postContext";
 
-export const Post = () => {
+export const Post = ({post}) => {
+    const {token} = useContext(AuthContext);
+    const {getPostAuthor} = useContext(PostContext);
 
+    const [author, setAuthor] = useState("");
+
+    useEffect(() => {
+        const fetchAuthor = async () => {
+            try {
+                const authorData = await getPostAuthor(post.id, token);
+                setAuthor(authorData);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchAuthor();
+    }, [post.id]);
 
     return (
         <div className="post">
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img className="postProfileImg" src="/assets/person/person-1.jpeg" alt=""/>
-                        <span className="postUsername">Antonio Boyanov</span>
-                        <span className="postDate">5 mins ago</span>
+                        <img className="postProfileImg" src={author?.profile_picture} alt=""/>
+                        <span className="postUsername">{post.username}</span>
+                        <span className="postDate">{post.creation_date}</span>
                     </div>
                     <div className="postTopRight">
                         <MoreVert/>
                     </div>
                 </div>
                 <div className="postCenter">
-                    <span className="postText">Hey! Its my first post:)</span>
-                    <img className="postImg" src="/assets/person/person-1.jpeg" alt=""/>
+                    <span className="postText">{post.content}</span>
+                    <img className="postImg" src={post.image_url} alt=""/>
                 </div>
                 <div className="postBottom">
                     <div className="postBottomLeft">

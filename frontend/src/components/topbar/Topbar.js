@@ -72,12 +72,23 @@ export const Topbar = () => {
                     </div>
                 </div>
                 <div className="profileDropdownContainer">
-                    <img
-                        src="/assets/person/person-1.jpeg"
-                        alt=""
-                        className="topbarImg"
-                        onClick={toggleDropdown}
-                    />
+                    {user.profile_picture
+                        ?
+                        (<img
+                                src={user.profile_picture}
+                                alt=""
+                                className="topbarImg"
+                                onClick={toggleDropdown}
+                            />
+                        )
+                        :
+                        (<img
+                            src="/assets/person/avatar.jpg"
+                            alt=""
+                            className="topbarImg"
+                            onClick={toggleDropdown}
+                        />)
+                    }
                     {isDropdownVisible && (
                         <div className="profileDropdown">
                             <Link className="profileDropdownItem" to={`/profile/${user.id}`}>Profile</Link>

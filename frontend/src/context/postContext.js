@@ -13,10 +13,39 @@ export const PostProvider = ({children}) => {
         }
     };
 
+    const getAllPosts = async (token) => {
+        try {
+            return await postService.getAllPosts(token);
+        } catch (error) {
+            throw error
+        }
+    };
+
+    const getUserPosts = async (userId, token) => {
+        try {
+            return await postService.getUserPosts(userId, token)
+        } catch (error) {
+            throw error;
+        }
+    };
+
+
+    const getPostAuthor = async (postId, token) => {
+        try {
+            return await postService.getPostAuthor(postId, token);
+        } catch (error) {
+            throw error;
+        }
+    };
+
 
     const postContextData = {
-        addPost
+        addPost,
+        getAllPosts,
+        getPostAuthor,
+        getUserPosts
     };
+
 
     return (
         <PostContext.Provider value={postContextData}>

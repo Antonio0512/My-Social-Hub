@@ -26,6 +26,10 @@ export const AuthProvider = ({children}) => {
         }
     };
 
+    const logout = () => {
+      setUser({});
+    };
+
     const update = async (credentials, user_id, token) => {
         try {
             return await authService.updateUser(credentials, user_id, token);
@@ -58,6 +62,7 @@ export const AuthProvider = ({children}) => {
         token: user?.access_token,
         register,
         login,
+        logout,
         update,
         getUser,
         getUsers
