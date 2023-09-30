@@ -34,7 +34,7 @@ export const Profile = () => {
                             <img className="profileUserImg" src={currUser?.profile_picture} alt=""/>
                         </div>
                         <div className="profileInfo">
-                            {user.full_name
+                            {currUser?.full_name
                                 ?
                                 (<h4 className="profileInfoName">{currUser?.full_name}</h4>)
                                 :
@@ -50,7 +50,7 @@ export const Profile = () => {
                     </div>
                     <div className="profileRightBottom">
                         <Feed/>
-                        <ProfileRightbar/>
+                        <ProfileRightbar currUser={currUser}/>
                     </div>
                 </div>
             </div>

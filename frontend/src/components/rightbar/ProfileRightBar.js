@@ -1,6 +1,6 @@
 import "./rightbar.css"
 
-export const ProfileRightbar = () => {
+export const ProfileRightbar = ({currUser}) => {
     return (
         <>
             <div className="rightbar">
@@ -9,15 +9,15 @@ export const ProfileRightbar = () => {
                     <div className="rightbarInfo">
                         <div className="rightbarInfoItem">
                             <span className="rightbarInfoKey">City:</span>
-                            <span className="rightbarInfoValue">New York</span>
+                            <span className="rightbarInfoValue">{currUser?.current_city}</span>
                         </div>
                         <div className="rightbarInfoItem">
                             <span className="rightbarInfoKey">From:</span>
-                            <span className="rightbarInfoValue">Madrid</span>
+                            <span className="rightbarInfoValue">{currUser?.birth_place}</span>
                         </div>
                         <div className="rightbarInfoItem">
                             <span className="rightbarInfoKey">Relationship:</span>
-                            <span className="rightbarInfoValue">Single</span>
+                            <span className="rightbarInfoValue">{currUser?.relationship_status}</span>
                         </div>
                     </div>
                     <h4 className="rightbarTitle">User friends</h4>

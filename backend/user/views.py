@@ -49,8 +49,11 @@ def update_user(
         email: str,
         full_name: str,
         bio: str,
-        profile_picture: str,  # Change the type to str for the file path
-        cover_picture: str,    # Change the type to str for the file path
+        current_city: str,
+        birth_place: str,
+        relationship_status: str,
+        profile_picture: str,
+        cover_picture: str,
         current_user: schemas.User,
         db: Session
 ):
@@ -73,15 +76,16 @@ def update_user(
     target_user.email = email
     target_user.full_name = full_name
     target_user.bio = bio
+    target_user.current_city = current_city
+    target_user.birth_place = birth_place
+    target_user.relationship_status = relationship_status
 
-    # Update the user's profile_picture and cover_picture paths
     target_user.profile_picture = profile_picture
     target_user.cover_picture = cover_picture
 
     db.commit()
     db.refresh(target_user)
 
-    # Return the updated user data, including the paths
     return target_user
 
 

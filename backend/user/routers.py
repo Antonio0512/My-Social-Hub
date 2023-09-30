@@ -4,8 +4,9 @@ from sqlalchemy.orm import Session
 
 from backend import auth
 from backend.database import get_db
-from backend.user import schemas, storage
-from backend.user import views
+from backend.user import schemas, views
+
+from backend.utils import save_image
 
 router = APIRouter()
 
@@ -56,6 +57,9 @@ def update_user(
         email: str = Form(...),
         full_name: str = Form(None),
         bio: str = Form(None),
+        current_city: str = Form(None),
+        birth_place: str = Form(None),
+        relationship_status: str = Form(None),
         profile_picture: Union[UploadFile, str] = File(None),
         cover_picture: Union[UploadFile, str] = File(None),
         current_user: schemas.User = Depends(auth.get_current_user),
@@ -64,12 +68,12 @@ def update_user(
     if isinstance(profile_picture, str):
         profile_picture_path = profile_picture
     else:
-        profile_picture_path = storage.save_image(profile_picture)
+        profile_picture_path = save_image(profile_picture, "profile_pics")
 
     if isinstance(cover_picture, str):
         cover_picture_path = cover_picture
     else:
-        cover_picture_path = storage.save_image(cover_picture)
+        cover_picture_path = save_image(cover_picture, "cover_pics")
 
     updated_user = views.update_user(
         user_id,
@@ -77,6 +81,9 @@ def update_user(
         email,
         full_name,
         bio,
+        current_city,
+        birth_place,
+        relationship_status,
         profile_picture_path,
         cover_picture_path,
         current_user,

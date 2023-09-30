@@ -2,6 +2,8 @@ import "./post.css"
 import {MoreVert} from "@mui/icons-material";
 
 export const Post = () => {
+
+
     return (
         <div className="post">
             <div className="postWrapper">

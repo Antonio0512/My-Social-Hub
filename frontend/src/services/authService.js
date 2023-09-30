@@ -43,6 +43,9 @@ export const updateUser = async (formData, user_id, token) => {
         formDataToSend.append("email", formData.email);
         formDataToSend.append("full_name", formData.full_name);
         formDataToSend.append("bio", formData.bio);
+        formDataToSend.append("current_city", formData.current_city);
+        formDataToSend.append("birth_place", formData.birth_place);
+        formDataToSend.append("relationship_status", formData.relationship_status);
         formDataToSend.append("profile_picture", formData.profile_picture);
         formDataToSend.append("cover_picture", formData.cover_picture);
 

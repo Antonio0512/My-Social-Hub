@@ -16,6 +16,9 @@ export const ProfileUpdate = () => {
         email: "",
         full_name: "",
         bio: "",
+        current_city: "",
+        birth_place: "",
+        relationship_status: "",
         profile_picture: null,
         cover_picture: null,
     });
@@ -29,6 +32,9 @@ export const ProfileUpdate = () => {
                     email: userData.email || "",
                     full_name: userData.full_name || "",
                     bio: userData.bio || "",
+                    current_city: userData.current_city || "",
+                    birth_place: userData.birth_place || "",
+                    relationship_status: userData.relationship_status || "",
                     profile_picture: userData.profile_picture || "",
                     cover_picture: userData.cover_picture || "",
                 });
@@ -39,7 +45,7 @@ export const ProfileUpdate = () => {
         fetchData();
     }, [user.id]);
 
-    const {username, email, full_name, bio} = formData;
+    const {username, email, full_name, bio, current_city, birth_place, relationship_status} = formData;
 
     const onChange = (e) => setFormData({...formData, [e.target.name]: e.target.value});
 
@@ -113,25 +119,55 @@ export const ProfileUpdate = () => {
                                    onChange={e => onChange(e)}
                                    autoComplete="text"
                             />
+                            <input placeholder="Current City"
+                                   className="profileUpdateInput"
+                                   type="text"
+                                   name="current_city"
+                                   value={current_city}
+                                   onChange={e => onChange(e)}
+                                   autoComplete="text"
+                            />
+                            <input placeholder="birth_place"
+                                   className="profileUpdateInput"
+                                   type="text"
+                                   name="birth_place"
+                                   value={birth_place}
+                                   onChange={e => onChange(e)}
+                                   autoComplete="text"
+                            />
+
+                            <select
+                                className="profileUpdateInput"
+                                name="relationship_status"
+                                value={relationship_status}
+                                onChange={e => onChange(e)}
+                            >
+                                <option value="">Relationship Status</option>
+                                <option value="married">Married</option>
+                                <option value="taken">Taken</option>
+                                <option value="single">Single</option>
+                            </select>
+
+
                             <label htmlFor="profile_picture">Profile Picture:
-                                <input className="profileUpdateInput"
-                                       type="file"
-                                       id="profile_picture"
-                                       name="profile_picture"
-                                       onChange={(e) => {
-                                           handleProfilePictureChange(e)
-                                       }}
+                                <input
+                                    type="file"
+                                    id="profile_picture"
+                                    name="profile_picture"
+                                    onChange={(e) => {
+                                        handleProfilePictureChange(e)
+                                    }}
                                 />
                             </label>
 
                             <label htmlFor="cover_picture">Cover Picture:
-                                <input className="profileUpdateInput"
-                                       type="file"
-                                       id="cover_picture"
-                                       name="cover_picture"
-                                       onChange={(e) => {
-                                           handleCoverPictureChange(e)
-                                       }}
+                                <input
+                                    type="file"
+                                    id="cover_picture"
+                                    name="cover_picture"
+                                    onChange={(e) => {
+                                        handleCoverPictureChange(e)
+                                    }}
                                 />
                             </label>
                             <AuthErrorMessage message={error}/>

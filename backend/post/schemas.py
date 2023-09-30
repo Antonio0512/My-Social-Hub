@@ -1,8 +1,11 @@
+from datetime import datetime
+from typing import Optional
+
 from pydantic import BaseModel
 
 class PostBase(BaseModel):
     content: str
-    image_url: str | None
+    image_url: Optional[str] = None
 
 class PostCreate(PostBase):
     pass
@@ -12,7 +15,7 @@ class PostUpdate(PostBase):
 
 class PostResponse(PostBase):
     id: int
-    creation_date: str
+    creation_date: datetime
     author_id: int
 
 class PostInDB(PostResponse):

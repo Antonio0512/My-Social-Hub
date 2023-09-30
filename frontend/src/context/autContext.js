@@ -10,7 +10,7 @@ export const AuthProvider = ({children}) => {
 
     const register = async (credentials) => {
         try {
-            await authService.registerUser(credentials);
+            return await authService.registerUser(credentials);
         } catch (error) {
             throw error
         }
@@ -67,5 +67,5 @@ export const AuthProvider = ({children}) => {
         <AuthContext.Provider value={authContextData}>
             {children}
         </AuthContext.Provider>
-    )
+    );
 };
