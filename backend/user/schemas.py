@@ -13,6 +13,7 @@ class UserBase(BaseModel):
     relationship_status: Optional[str] = None
     profile_picture: Optional[str] = None
     cover_picture: Optional[str] = None
+    is_online: Optional[bool] = False
     registration_date: Optional[str] = None
 
 

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from enum import Enum
 from backend.database import Base
@@ -24,6 +24,7 @@ class User(Base):
     relationship_status = Column(String, nullable=True)
     profile_picture = Column(String, nullable=True)
     cover_picture = Column(String, nullable=True)
+    is_online = Column(Boolean, default=False)
     registration_date = Column(DateTime, nullable=True)
 
     posts = relationship(

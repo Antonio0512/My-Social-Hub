@@ -27,7 +27,7 @@ export const AuthProvider = ({children}) => {
     };
 
     const logout = () => {
-      setUser({});
+        setUser({});
     };
 
     const update = async (credentials, user_id, token) => {
@@ -56,6 +56,15 @@ export const AuthProvider = ({children}) => {
         }
     };
 
+
+    const getOnlineUsers = async (token) => {
+        try {
+            return await authService.getOnlineUsers(token);
+        } catch (error) {
+            throw error;
+        }
+    };
+
     const authContextData = {
         user: user?.user,
         users,
@@ -65,7 +74,8 @@ export const AuthProvider = ({children}) => {
         logout,
         update,
         getUser,
-        getUsers
+        getUsers,
+        getOnlineUsers
     };
 
     return (

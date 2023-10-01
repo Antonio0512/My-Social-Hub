@@ -101,3 +101,7 @@ def get_users(query: str, db: Session):
         return db.query(models.User).filter(models.User.username.ilike(f"%{query}%")).all()
     else:
         return db.query(models.User).all()
+
+
+def get_online_users(db: Session):
+    return db.query(models.User).filter(models.User.is_online).all()

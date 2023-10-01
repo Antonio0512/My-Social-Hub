@@ -96,3 +96,21 @@ export const getUsers = async (search, token) => {
         throw error;
     }
 };
+
+
+export const getOnlineUsers = async (token) => {
+    try {
+        const response = await axios.get(
+            "api/users-online",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

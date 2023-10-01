@@ -5,22 +5,24 @@ import {Feed} from "../../components/feed/Feed";
 import {ProfileRightbar} from "../../components/rightbar/ProfileRightBar";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/autContext";
+import {useParams} from "react-router-dom";
 
 export const Profile = () => {
-    const {user, getUser, token} = useContext(AuthContext);
+    const {userId} = useParams();
+    const {getUser, token} = useContext(AuthContext);
     const [currUser, setCurrUser] = useState(null);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const userData = await getUser(user.id, token);
+                const userData = await getUser(userId, token);
                 setCurrUser(userData);
             } catch (error) {
                 console.error(error);
             }
         };
         fetchUser();
-    }, [user.id, token]);
+    }, [userId, token]);
 
     return (
         <>
@@ -43,22 +45,16 @@ export const Profile = () => {
                             }
                         </div>
                         <div className="profileInfo">
-                            {currUser?.full_name
-                                ?
-                                (<h4 className="profileInfoName">{currUser?.full_name}</h4>)
-                                :
-                                (<h4 className="profileInfoName">{currUser?.username}</h4>)
+                            {<h4 className="profileInfoName">{currUser?.full_name}</h4> ||
+                                <h4 className="profileInfoName">{currUser?.username}</h4>
                             }
-                            {user.bio
-                                ?
-                                (<span className="profileInfoDesc">{currUser?.bio}</span>)
-                                :
-                                (<span className="profileInfoDesc">No description</span>)
+                            {<span className="profileInfoDesc">{currUser?.bio}</span> ||
+                                <span className="profileInfoDesc">No description</span>
                             }
                         </div>
                     </div>
                     <div className="profileRightBottom">
-                        <Feed userId={currUser?.id} isProfileFeed={true}/>
+                        <Feed userId={userId} isProfileFeed={true}/>
                         <ProfileRightbar currUser={currUser}/>
                     </div>
                 </div>

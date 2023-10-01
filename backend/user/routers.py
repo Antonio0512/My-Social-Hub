@@ -109,6 +109,12 @@ def get_users(
         _current_user: schemas.User = Depends(auth.get_current_user),
         db: Session = Depends(get_db)
 ):
-    users = views.get_users(q, db)
+    return views.get_users(q, db)
 
-    return users
+
+@router.get("/users-online", response_model=List[schemas.User])
+def get_online_users(
+        _current_user: schemas.User = Depends(auth.get_current_user),
+        db: Session = Depends(get_db)
+):
+    return views.get_online_users(db)

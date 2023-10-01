@@ -3,9 +3,10 @@ import {MoreVert} from "@mui/icons-material";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../../context/autContext";
 import {PostContext} from "../../context/postContext";
+import {Link} from "react-router-dom";
 
 export const Post = ({post}) => {
-    const {token} = useContext(AuthContext);
+    const {token, user} = useContext(AuthContext);
     const {getPostAuthor} = useContext(PostContext);
 
     const [author, setAuthor] = useState("");
@@ -27,12 +28,14 @@ export const Post = ({post}) => {
             <div className="postWrapper">
                 <div className="postTop">
                     <div className="postTopLeft">
-                        <img className="postProfileImg" src={author?.profile_picture} alt=""/>
-                        <span className="postUsername">{post.username}</span>
+                        <Link to={`/profile/${post.author_id}`}>
+                            <img className="postProfileImg" src={author?.profile_picture} alt=""/>
+                        </Link>
+                        <span className="postUsername">{author.username}</span>
                         <span className="postDate">{post.creation_date}</span>
                     </div>
                     <div className="postTopRight">
-                        <MoreVert/>
+                        {post.author_id === user.id && <MoreVert/>}
                     </div>
                 </div>
                 <div className="postCenter">

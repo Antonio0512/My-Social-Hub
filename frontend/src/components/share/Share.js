@@ -5,7 +5,7 @@ import {useContext, useState} from "react";
 import {AuthContext} from "../../context/autContext";
 import {PostContext} from "../../context/postContext";
 
-export const Share = () => {
+export const Share = ({isProfileFeed}) => {
     const navigate = useNavigate();
 
     const {user, token} = useContext(AuthContext);
@@ -27,12 +27,15 @@ export const Share = () => {
 
         try {
             await addPost(formData, user.id, token);
-            navigate("/");
+            if (isProfileFeed) {
+                navigate(`/profile/${user.id}`);
+            } else {
+                navigate("/");
+            }
         } catch (error) {
             console.error(error);
         }
     };
-
 
     return (
         <form
@@ -65,7 +68,7 @@ export const Share = () => {
                         <div className="shareOption">
                             <label htmlFor="fileInput">
                                 <PermMedia htmlColor="tomato" className="shareIcon"/>
-                                <span className="shareOptionText">Photo or Video</span>
+                                <span className="shareOptionText">Photo/Video</span>
                             </label>
                             <input
                                 style={{display: "none"}}
