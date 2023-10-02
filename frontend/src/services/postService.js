@@ -39,31 +39,6 @@ export const getAllPosts = async (token) => {
     }
 };
 
-const authorCache = {};
-export const getPostAuthor = async (postId, token) => {
-    if (authorCache[postId]) {
-        return authorCache[postId];
-    } else {
-        try {
-            const response = await axios.get(
-                `/api/posts/${postId}/author`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-            const authorData = response.data;
-
-            authorData[postId] = response.data;
-
-            return authorData;
-        } catch (error) {
-            throw error;
-        }
-    }
-};
-
 export const getUserPosts = async (userId, token) => {
     try {
         const response = await axios.get(

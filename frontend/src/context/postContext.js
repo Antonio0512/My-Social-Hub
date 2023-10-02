@@ -30,19 +30,9 @@ export const PostProvider = ({children}) => {
     };
 
 
-    const getPostAuthor = async (postId, token) => {
-        try {
-            return await postService.getPostAuthor(postId, token);
-        } catch (error) {
-            throw error;
-        }
-    };
-
-
     const postContextData = {
         addPost,
         getAllPosts,
-        getPostAuthor,
         getUserPosts
     };
 

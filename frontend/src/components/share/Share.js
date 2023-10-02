@@ -46,11 +46,10 @@ export const Share = ({isProfileFeed}) => {
         >
             <div className="shareWrapper">
                 <div className="shareTop">
-                    {user.profile_picture
-                        ?
-                        (<img className="shareProfileImg" src={user.profile_picture} alt=""/>)
-                        :
-                        (<img className="shareProfileImg" src="/assets/person/avatar.jpg" alt=""/>)
+                    {
+                        <img className="shareProfileImg" src={user.profile_picture} alt=""/>
+                        ||
+                        <img className="shareProfileImg" src="/assets/person/avatar.jpg" alt=""/>
                     }
                     <input
                         className="shareInput"

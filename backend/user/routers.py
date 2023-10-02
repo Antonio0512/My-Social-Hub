@@ -41,8 +41,12 @@ def login(
         "email": user.email,
         "full_name": user.full_name,
         "bio": user.bio,
+        "current_city": user.current_city,
+        "birth_place": user.birth_place,
+        "relationship_status": user.relationship_status,
         "profile_picture": user.profile_picture,
         "cover_picture": user.cover_picture,
+        "is_online": user.is_online,
         "posts": [post.id for post in user.posts],
         "friends": [friend.id for friend in user.friends]
     }

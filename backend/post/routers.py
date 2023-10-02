@@ -3,20 +3,17 @@ from typing import Union, List
 from fastapi import APIRouter, Depends, UploadFile, File, Form
 from sqlalchemy.orm import Session
 
-from backend.post import views
+from backend.post import views, schemas
 from backend.user.schemas import User as Schema_user
-
-from backend.user import schemas
 
 from backend.auth import get_current_user
 from backend.database import get_db
-
 from backend.utils import save_image
 
 router = APIRouter()
 
 
-@router.post("/posts", response_model=schemas.PostResponse)
+@router.post("/posts", response_model=schemas.PostResponseWithAuthorId)
 def add_post(
         content: str = Form(...),
         image: Union[UploadFile, str] = File(...),
@@ -37,28 +34,20 @@ def add_post(
     return post
 
 
-@router.get("/posts", response_model=List[schemas.PostResponse])
-def get_posts(
+@router.get("/posts", response_model=List[schemas.PostResponseWithAuthor])
+def get_posts_with_author(
         _current_user: Schema_user = Depends(get_current_user),
         db: Session = Depends(get_db)
 ):
-    posts = views.get_posts(db, column_name="creation_date")
+    posts = views.get_posts_with_author(db, column_name="creation_date")
     return posts
 
 
-@router.get("/posts/{post_id}/author", response_model=schemas.User)
-def get_post_author(
-        post_id: int,
-        _current_user: schemas.User = Depends(get_current_user),
-        db: Session = Depends(get_db)
-):
-    return views.get_post_author(post_id, db)
-
-
-@router.get("/{user_id}/posts", response_model=List[schemas.PostResponse])
-def get_user_posts(
+@router.get("/{user_id}/posts", response_model=List[schemas.PostResponseWithAuthor])
+def get_user_posts_with_author(
         user_id: int,
-        _current_user: schemas.User = Depends(get_current_user),
+        _current_user: Schema_user = Depends(get_current_user),
         db: Session = Depends(get_db)
 ):
-    return views.get_user_posts(user_id, db)
+    posts = views.get_user_posts_with_author(user_id, db, column_name="creation_date")
+    return posts

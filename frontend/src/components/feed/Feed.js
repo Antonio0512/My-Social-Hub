@@ -4,6 +4,7 @@ import {Post} from "../post/Post";
 import {useContext, useEffect, useState} from "react";
 import {PostContext} from "../../context/postContext";
 import {AuthContext} from "../../context/autContext";
+import {TailSpin} from "react-loader-spinner";
 
 export const Feed = ({userId, isProfileFeed}) => {
 
@@ -11,6 +12,7 @@ export const Feed = ({userId, isProfileFeed}) => {
     const {user, token, logout} = useContext(AuthContext);
 
     const [posts, setPosts] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         if (userId) {
@@ -25,6 +27,8 @@ export const Feed = ({userId, isProfileFeed}) => {
                         } else {
                             console.error(error);
                         }
+                    } finally {
+                        setIsLoading(false);
                     }
                 };
                 fetchUserPosts();
@@ -40,6 +44,8 @@ export const Feed = ({userId, isProfileFeed}) => {
                     } else {
                         console.error(error);
                     }
+                } finally {
+                    setIsLoading(false);
                 }
             };
             fetchAllPosts();
@@ -49,14 +55,24 @@ export const Feed = ({userId, isProfileFeed}) => {
 
     return (
         <div className="feed">
-            <div className="feedWrapper">
-                {(isProfileFeed && user.id === Number(userId)) || !isProfileFeed ? (
-                    <Share isProfileFeed={isProfileFeed}/>
-                ) : null}
-                {posts.map((post) => (
-                    <Post key={post.id} post={post}/>
-                ))}
-            </div>
+            {isLoading ? (
+                    <div className="loader-container">
+                        <TailSpin
+                            color="#00BFFF"
+                            height={100}
+                            width={100}
+                        />
+                    </div>
+                ) :
+                <div className="feedWrapper">
+                    {(isProfileFeed && user.id === Number(userId)) || !isProfileFeed ? (
+                        <Share isProfileFeed={isProfileFeed}/>
+                    ) : null}
+                    {posts.map((post) => (
+                        <Post key={post.id} post={post}/>
+                    ))}
+                </div>
+            }
         </div>
     );
 };
