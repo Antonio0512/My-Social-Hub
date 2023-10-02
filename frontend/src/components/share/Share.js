@@ -82,8 +82,7 @@ export const Share = ({isProfileFeed}) => {
                             <span className="shareOptionText">Tag</span>
                         </div>
                         <div className="shareOption">
-                            <Room htmlColor="green" className="shareIcon"/>
-                            <span className="shareOptionText">Location</span>
+                            <Room htmlColor="green" className="shareIcon"/><span className="shareOptionText">Location</span>
                         </div>
                         <div className="shareOption">
                             <EmojiEmotions htmlColor="goldenrod" className="shareIcon"/>

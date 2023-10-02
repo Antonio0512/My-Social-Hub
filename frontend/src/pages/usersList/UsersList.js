@@ -1,11 +1,23 @@
 import "./usersList.css";
 import {useContext} from "react";
 import {AuthContext} from "../../context/autContext";
+import {FriendContext} from "../../context/friendContext";
 import {Topbar} from "../../components/topbar/Topbar";
 import {Link} from "react-router-dom";
 
 export const UsersList = () => {
-    const {users} = useContext(AuthContext);
+    const {users, token, user} = useContext(AuthContext);
+    const {addFriend} = useContext(FriendContext);
+
+    const onSubmit = async (friendId) => {
+        try {
+            await addFriend(user.id, friendId, token)
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
         <>
             <Topbar/>
@@ -32,12 +44,13 @@ export const UsersList = () => {
                                 )}
                                 <p className="searchUsername">{user.username}</p>
                             </Link>
-                            <button className="addFriendButton">+ Add Friend</button>
+                            <button onClick={() => onSubmit(user.id)} className="addFriendButton">
+                                + Add Friend
+                            </button>
                         </div>
                     ))}
                 </div>
             </div>
         </>
-    )
-        ;
+    );
 };

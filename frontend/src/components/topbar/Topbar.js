@@ -93,7 +93,7 @@ export const Topbar = () => {
                         <div className="profileDropdown">
                             <Link className="profileDropdownItem" to={`/profile/${user.id}`}>Profile</Link>
                             <Link className="profileDropdownItem" to={`/profile/update/${user.id}`}>Settings</Link>
-                            <Link className="profileDropdownItem" onClick={logout}>Logout</Link>
+                            <Link className="profileDropdownItem" to={'/login'} onClick={logout}>Logout</Link>
                         </div>
                     )}
                 </div>

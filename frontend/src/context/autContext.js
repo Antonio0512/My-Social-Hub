@@ -12,7 +12,7 @@ export const AuthProvider = ({children}) => {
         try {
             return await authService.registerUser(credentials);
         } catch (error) {
-            throw error
+            throw error;
         }
     };
 
