@@ -26,3 +26,15 @@ def add_friend(
     db.commit()
     db.refresh(friendship)
     return friendship
+
+
+def get_friendship_status(
+        current_user_id: int,
+        user_id: int,
+        db: Session
+):
+    friendship = friendship_validators.get_friendship(current_user_id, user_id, db)
+    if friendship:
+        return "Friends"
+    else:
+        return "Not Friends"

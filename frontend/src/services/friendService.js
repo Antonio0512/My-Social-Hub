@@ -3,7 +3,7 @@ import axios from "axios";
 export const addFriend = async (userId, friendId, token) => {
     try {
         const response = await axios.post(
-            "api/friends/add",
+            "/api/friends/add",
             {
                 user_id: userId,
                 friend_id: friendId
@@ -13,6 +13,27 @@ export const addFriend = async (userId, friendId, token) => {
                     Authorization: `Bearer ${token}`,
                     "Content-Type": "application/json"
                 }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+
+export const getFriendships = async (users, token) => {
+
+    const userIds = users.map(user => user.id).join(",");
+
+    try {
+        const response = await axios.get(
+            "/api/friendships/status",
+            {
+                params: {user_ids: userIds},
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
             }
         );
         return response.data;

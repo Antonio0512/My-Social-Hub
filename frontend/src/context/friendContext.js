@@ -12,8 +12,18 @@ export const FriendProvider = ({children}) => {
         }
     };
 
+    const getFriendships = async (users, token) => {
+        try {
+            return await friendService.getFriendships(users, token);
+        } catch (error) {
+            throw error;
+        }
+    };
+
+
     const friendContextData = {
-        addFriend
+        addFriend,
+        getFriendships
     };
 
     return (

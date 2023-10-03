@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 from backend.post.schemas import PostResponseWithAuthorId
-
+from backend.friendship.schemas import FriendshipResponse
 
 class UserBase(BaseModel):
     username: str
@@ -34,7 +34,7 @@ class UserUpdate(UserBase):
 class User(UserBase):
     id: int
     posts: List[PostResponseWithAuthorId] = []
-    friends: List[Dict] = []
+    friends: List[FriendshipResponse] = []
 
     class Config:
         from_attributes = True

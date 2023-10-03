@@ -29,8 +29,12 @@ class User(Base):
 
     posts = relationship(
         "Post",
-        back_populates="author")
+        back_populates="author",
+        cascade="all, delete-orphan"
+    )
     friends = relationship(
         "Friendship",
         back_populates="user",
-        primaryjoin="User.id == Friendship.user_id")
+        primaryjoin="User.id == Friendship.user_id",
+        cascade="all, delete-orphan"
+    )
