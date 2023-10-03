@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from backend.friendship import schemas as friendship_schema, views
@@ -21,6 +21,17 @@ def add_friend(
     return views.add_friend(friendship_data, current_user, db)
 
 
+@router.delete("/friends/remove/{user_id}/{friend_id}", response_model=friendship_schema.FriendshipRemove)
+def remove_friend(
+        user_id: int,
+        friend_id: int,
+        current_user: user_schema.User = Depends(get_current_user),
+        db: Session = Depends(get_db)
+):
+    removed_friendship = views.remove_friend(user_id, friend_id, current_user, db)
+    return {"message": "Friendship removed successfully", "friendship": removed_friendship}
+
+
 @router.get("/friendships/status", response_model=List[friendship_schema.FriendshipStatus])
 def get_friendships(
         user_ids: str,
@@ -34,11 +45,10 @@ def get_friendships(
         status = views.get_friendship_status(current_user.id, user_id, db)
         friendship_statuses.append(
             {
-                "user_id": user_id,
-                "friend_id": current_user.id,
+                "user_id": current_user.id,
+                "friend_id": user_id,
                 "status": status
             }
         )
 
-    print(friendship_statuses)
     return friendship_statuses

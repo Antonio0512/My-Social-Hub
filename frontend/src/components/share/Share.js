@@ -46,9 +46,10 @@ export const Share = ({isProfileFeed}) => {
         >
             <div className="shareWrapper">
                 <div className="shareTop">
-                    {
+                    {user.profile_picture
+                        ?
                         <img className="shareProfileImg" src={user.profile_picture} alt=""/>
-                        ||
+                        :
                         <img className="shareProfileImg" src="/assets/person/avatar.jpg" alt=""/>
                     }
                     <input
@@ -82,7 +83,8 @@ export const Share = ({isProfileFeed}) => {
                             <span className="shareOptionText">Tag</span>
                         </div>
                         <div className="shareOption">
-                            <Room htmlColor="green" className="shareIcon"/><span className="shareOptionText">Location</span>
+                            <Room htmlColor="green" className="shareIcon"/><span
+                            className="shareOptionText">Location</span>
                         </div>
                         <div className="shareOption">
                             <EmojiEmotions htmlColor="goldenrod" className="shareIcon"/>

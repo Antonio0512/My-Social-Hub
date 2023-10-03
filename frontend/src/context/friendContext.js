@@ -12,6 +12,14 @@ export const FriendProvider = ({children}) => {
         }
     };
 
+    const removeFriend = async (userId, friendId, token) => {
+        try {
+            return await friendService.removeFriend(userId, friendId, token);
+        } catch (error) {
+            throw error;
+        }
+    };
+
     const getFriendships = async (users, token) => {
         try {
             return await friendService.getFriendships(users, token);
@@ -23,6 +31,7 @@ export const FriendProvider = ({children}) => {
 
     const friendContextData = {
         addFriend,
+        removeFriend,
         getFriendships
     };
 

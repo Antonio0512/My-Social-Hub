@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext} from "react";
 import * as authService from '../services/authService'
 import {useLocalStorage} from "../hooks/useLocalStorage";
 
@@ -6,7 +6,7 @@ export const AuthContext = createContext(undefined);
 
 export const AuthProvider = ({children}) => {
     const [user, setUser] = useLocalStorage("auth", {});
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useLocalStorage("users", {});
 
     const register = async (credentials) => {
         try {

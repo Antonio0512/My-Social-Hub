@@ -28,6 +28,29 @@ def add_friend(
     return friendship
 
 
+def remove_friend(
+        user_id: int,
+        friend_id: int,
+        current_user: user_schemas.User,
+        db: Session
+):
+    friendship = friendship_validators.get_friendship(user_id, friend_id, db)
+
+    if not friendship:
+        raise HTTPException(status_code=404,
+                            detail=f"Friendship with user_id {user_id} and friend_id {friend_id} not found")
+
+    if friendship.user_id != current_user.id:
+        raise HTTPException(status_code=403, detail="You are not authorized to remove this friendship")
+
+    removed_friendship = friendship
+
+    db.delete(friendship)
+    db.commit()
+    
+    return removed_friendship
+
+
 def get_friendship_status(
         current_user_id: int,
         user_id: int,

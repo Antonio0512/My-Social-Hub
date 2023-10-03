@@ -127,7 +127,7 @@ export const ProfileUpdate = () => {
                                    onChange={e => onChange(e)}
                                    autoComplete="text"
                             />
-                            <input placeholder="birth_place"
+                            <input placeholder="Birth Place"
                                    className="profileUpdateInput"
                                    type="text"
                                    name="birth_place"
