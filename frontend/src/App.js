@@ -11,23 +11,26 @@ import {PostProvider} from "./context/postContext";
 import {FriendProvider} from "./context/friendContext";
 
 function App() {
+
     return (
-        <AuthProvider>
-            <PostProvider>
-                <FriendProvider>
-                    <Routes>
-                        <Route path={"/register"} element={<Register/>}/>
-                        <Route path={"/login"} element={<Login/>}/>
-                        <Route element={<AuthRouteGuard/>}>
-                            <Route path={"/profile/:userId"} element={<Profile/>}/>
-                            <Route path={"/profile/update/:userId"} element={<ProfileUpdate/>}/>
-                            <Route path={"/users"} element={<UsersList/>}/>
-                            <Route path={"/"} element={<Home/>}/>
-                        </Route>
-                    </Routes>
-                </FriendProvider>
-            </PostProvider>
-        </AuthProvider>
+        <div>
+            <AuthProvider>
+                <PostProvider>
+                    <FriendProvider>
+                        <Routes>
+                            <Route path={"/register"} element={<Register/>}/>
+                            <Route path={"/login"} element={<Login/>}/>
+                            <Route element={<AuthRouteGuard/>}>
+                                <Route path={"/profile/:userId"} element={<Profile/>}/>
+                                <Route path={"/profile/update/:userId"} element={<ProfileUpdate/>}/>
+                                <Route path={"/users"} element={<UsersList/>}/>
+                                <Route path={"/"} element={<Home/>}/>
+                            </Route>
+                        </Routes>
+                    </FriendProvider>
+                </PostProvider>
+            </AuthProvider>
+        </div>
     );
 }
 
