@@ -116,9 +116,18 @@ def get_users(
     return views.get_users(q, db)
 
 
-@router.get("/users-online", response_model=List[schemas.User])
+@router.get("/users/online", response_model=List[schemas.User])
 def get_online_users(
         _current_user: schemas.User = Depends(auth.get_current_user),
         db: Session = Depends(get_db)
 ):
     return views.get_online_users(db)
+
+
+@router.get("/{user_id}/friends", response_model=List[schemas.User])
+def get_user_friends(
+        user_id: int,
+        current_user: schemas.User = Depends(auth.get_current_user),
+        db: Session = Depends(get_db)
+):
+    return views.get_user_friends(user_id, db)

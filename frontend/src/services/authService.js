@@ -98,15 +98,14 @@ export const getUsers = async (search, token) => {
 };
 
 
-export const getOnlineUsers = async (token) => {
+export const getUserFriends = async (userId, token) => {
     try {
         const response = await axios.get(
-            "api/users-online",
+            `/api/${userId}/friends`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
+                },
             }
         );
         return response.data;

@@ -56,14 +56,14 @@ export const AuthProvider = ({children}) => {
         }
     };
 
-
-    const getOnlineUsers = async (token) => {
+    const getUserFriends = async (userId, token) => {
         try {
-            return await authService.getOnlineUsers(token);
+            return await authService.getUserFriends(userId, token);
         } catch (error) {
             throw error;
         }
     };
+
 
     const authContextData = {
         user: user?.user,
@@ -75,7 +75,7 @@ export const AuthProvider = ({children}) => {
         update,
         getUser,
         getUsers,
-        getOnlineUsers
+        getUserFriends
     };
 
     return (

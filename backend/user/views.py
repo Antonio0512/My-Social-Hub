@@ -105,3 +105,12 @@ def get_users(query: str, db: Session):
 
 def get_online_users(db: Session):
     return db.query(models.User).filter(models.User.is_online).all()
+
+
+def get_user_friends(user_id: int, db: Session):
+    user = validators.get_user_by_id(user_id, db)
+
+    friend_ids = [friendship.friend_id for friendship in user.friends]
+    friends = db.query(models.User).filter(models.User.id.in_(friend_ids)).all()
+
+    return friends

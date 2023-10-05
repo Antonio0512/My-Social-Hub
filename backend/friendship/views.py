@@ -17,7 +17,7 @@ def add_friend(
     if friendship_data.friend_id == current_user.id:
         raise HTTPException(status_code=400, detail="You cannot add yourself as a friend")
 
-    existing_friendship = friendship_validators.get_friendship(current_user.id, friendship_data.friend_id, db)
+    existing_friendship = friendship_validators.are_friends(current_user.id, friendship_data.friend_id, db)
     if existing_friendship:
         raise HTTPException(status_code=400, detail="Friendship already exists")
 
@@ -34,7 +34,7 @@ def remove_friend(
         current_user: user_schemas.User,
         db: Session
 ):
-    friendship = friendship_validators.get_friendship(user_id, friend_id, db)
+    friendship = friendship_validators.are_friends(user_id, friend_id, db)
 
     if not friendship:
         raise HTTPException(status_code=404,
@@ -56,7 +56,7 @@ def get_friendship_status(
         user_id: int,
         db: Session
 ):
-    friendship = friendship_validators.get_friendship(current_user_id, user_id, db)
+    friendship = friendship_validators.are_friends(current_user_id, user_id, db)
     if friendship:
         return "Friends"
     else:
