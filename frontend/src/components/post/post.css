@@ -20,19 +20,28 @@
 .postTopLeft {
     display: flex;
     align-items: center;
+    margin-left: 8px;
+    margin-top: 8px;
 }
 
 .postProfileImg {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     object-fit: cover;
 }
 
+
+.postUsernamePostDateContainer {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+
 .postUsername {
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
-    margin: 0 10px;
 }
 
 .postDate {
@@ -40,11 +49,15 @@
 }
 
 .postCenter {
-    margin: 20px 0;
+    margin: 8px 0;
+}
+
+.postText {
+    margin-left: 10px;
 }
 
 .postImg {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100%;
     max-height: 500px;
     object-fit: contain;
@@ -64,11 +77,12 @@
 .likeIcon {
     width: 24px;
     height: 24px;
-    margin-right: 3px;
+    margin-right: -5px;
     cursor: pointer;
 }
 
 .postLikeCounter {
+    margin-left: 10px;
     font-size: 15px;
 }
 
@@ -76,4 +90,31 @@
     cursor: pointer;
     border-bottom: 1px dashed gray;
     font-size: 15px;
+}
+
+.postActions {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 8px 0;
+    border-top: 1px solid #ccc;
+    margin-top: 8px;
+}
+
+.likeButton,
+.commentButton,
+.postShareButton {
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.likeButton:hover,
+.commentButton:hover,
+.postShareButton:hover {
+    background-color: #cccccc;
+    color: #333;
 }

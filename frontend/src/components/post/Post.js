@@ -14,8 +14,10 @@ export const Post = ({post}) => {
                         <Link to={`/profile/${post.author.id}`}>
                             <img className="postProfileImg" src={post.author?.profile_picture} alt=""/>
                         </Link>
-                        <span className="postUsername">{post.author.username}</span>
-                        <span className="postDate">{post.creation_date}</span>
+                        <div className="postUsernamePostDateContainer">
+                            <span className="postUsername">{post.author.username}</span>
+                            <span className="postDate">{post.creation_date}</span>
+                        </div>
                     </div>
                     <div className="postTopRight">
                         {post.author.id === user.id && <MoreVert/>}
@@ -34,6 +36,11 @@ export const Post = ({post}) => {
                     <div className="postBottomRight">
                         <span className="postCommentText">9 comments</span>
                     </div>
+                </div>
+                <div className="postActions">
+                    <button className="likeButton">Like</button>
+                    <button className="commentButton">Comment</button>
+                    <button className="postShareButton">Share</button>
                 </div>
             </div>
         </div>
