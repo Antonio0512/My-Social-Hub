@@ -3,9 +3,13 @@ import {MoreVert} from "@mui/icons-material";
 import {useContext} from "react";
 import {AuthContext} from "../../context/autContext";
 import {Link} from "react-router-dom";
+import {calculate_time_since_post} from "./timeUtils";
 
 export const Post = ({post}) => {
     const {user} = useContext(AuthContext);
+
+    const timeSincePost = calculate_time_since_post(post.creation_date);
+
     return (
         <div className="post">
             <div className="postWrapper">
@@ -16,7 +20,7 @@ export const Post = ({post}) => {
                         </Link>
                         <div className="postUsernamePostDateContainer">
                             <span className="postUsername">{post.author.username}</span>
-                            <span className="postDate">{post.creation_date}</span>
+                            <span className="postDate">{timeSincePost}</span>
                         </div>
                     </div>
                     <div className="postTopRight">
