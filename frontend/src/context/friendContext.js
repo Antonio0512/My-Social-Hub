@@ -28,11 +28,20 @@ export const FriendProvider = ({children}) => {
         }
     };
 
+    const sendFriendRequest = async (credentials, token) => {
+        try {
+            return await friendService.sendFriendRequest(credentials, token)
+        } catch (error) {
+            throw error;
+        }
+    };
+
 
     const friendContextData = {
         addFriend,
         removeFriend,
-        getFriendships
+        getFriendships,
+        sendFriendRequest
     };
 
     return (

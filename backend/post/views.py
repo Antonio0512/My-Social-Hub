@@ -12,7 +12,7 @@ def create_post(
         current_user: schemas.User,
         db: Session
 ):
-    creation_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    creation_date = datetime.utcnow()
     post = Post(content=content, image_url=post_picture_path, creation_date=str(creation_date),
                 author_id=current_user.id)
     db.add(post)

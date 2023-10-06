@@ -58,3 +58,22 @@ export const getFriendships = async (users, token) => {
         throw error;
     }
 };
+
+
+export const sendFriendRequest = async (credentials, token) => {
+    try {
+        const response = await axios.post(
+            "/api/friend-request",
+            JSON.stringify(credentials),
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};

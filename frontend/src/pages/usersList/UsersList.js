@@ -6,10 +6,9 @@ import {Topbar} from "../../components/topbar/Topbar";
 import {Link} from "react-router-dom";
 import {TailSpin} from "react-loader-spinner";
 
-
 export const UsersList = () => {
     const {users, token, user} = useContext(AuthContext);
-    const {addFriend, removeFriend, getFriendships} = useContext(FriendContext);
+    const {getFriendships, removeFriend, sendFriendRequest} = useContext(FriendContext);
 
     const [friendships, setFriendships] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -29,17 +28,27 @@ export const UsersList = () => {
         fetchFriendships();
     }, [user.id, token, users, getFriendships]);
 
-    const onSubmit = async (friendId, isFriend) => {
+    const handleFriendAction = async (friend, isFriend) => {
         try {
             if (!isFriend) {
-                await addFriend(user.id, friendId, token)
+                const requestData = {
+                    "sender_id": user.id,
+                    "recipient_id": friend.id,
+                    "message": `${user.username} sent you a friend request`,
+                    "read": "False",
+                    "notification_data": "friend_request",
+                };
+
+                await sendFriendRequest(requestData, token);
+
                 setFriendships((prevFriendships) => [
-                    ...prevFriendships, {user_id: user.id, friend_id: friendId, status: "Friends"}
+                    ...prevFriendships,
+                    {user_id: user.id, friend_id: friend.id, status: "Requested"},
                 ]);
             } else {
-                await removeFriend(user.id, friendId, token);
+                await removeFriend(user.id, friend, token);
                 setFriendships((prevFriendships) =>
-                    prevFriendships.filter((friendship) => friendship.friend_id !== friendId)
+                    prevFriendships.filter((friendship) => friendship.friend_id !== friend.id)
                 );
             }
         } catch (error) {
@@ -55,18 +64,17 @@ export const UsersList = () => {
             </header>
             <div className="searchContainer">
                 {isLoading ? (
-                        <div className="loader-container">
-                            <TailSpin
-                                color="#00BFFF"
-                                height={100}
-                                width={100}
-                            />
-                        </div>
-                    ) :
+                    <div className="loader-container">
+                        <TailSpin color="#00BFFF" height={100} width={100}/>
+                    </div>
+                ) : (
                     <div className="searchResults" id="searchResults">
                         {users.map((currUser) => {
-                            const isFriend = friendships
-                                .some((f) => f.friend_id === currUser.id && f.status === "Friends");
+                            const isFriend = friendships.some(
+                                (f) =>
+                                    f.friend_id === currUser.id &&
+                                    f.status === "Friends"
+                            );
                             return (
                                 <div key={currUser.id} className="searchUserBox">
                                     <Link className="searchLink" to={`/profile/${currUser.id}`}>
@@ -88,7 +96,7 @@ export const UsersList = () => {
 
                                     {user.id !== currUser.id && (
                                         <button
-                                            onClick={() => onSubmit(currUser.id, isFriend)}
+                                            onClick={() => handleFriendAction(currUser, isFriend)}
                                             className="friendButton"
                                         >
                                             {isFriend ? "Friends" : "+ Add Friend"}
@@ -98,7 +106,7 @@ export const UsersList = () => {
                             );
                         })}
                     </div>
-                }
+                )}
             </div>
         </>
     );

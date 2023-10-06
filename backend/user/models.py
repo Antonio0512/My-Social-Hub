@@ -20,6 +20,18 @@ class User(Base):
     is_online = Column(Boolean, default=False)
     registration_date = Column(DateTime, nullable=True)
 
+    sent_notifications = relationship(
+        "Notification",
+        foreign_keys="Notification.sender_id",
+        back_populates="sender",
+    )
+
+    received_notifications = relationship(
+        "Notification",
+        foreign_keys="Notification.recipient_id",
+        back_populates="recipient",
+    )
+
     posts = relationship(
         "Post",
         back_populates="author",

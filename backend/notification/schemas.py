@@ -1,32 +1,26 @@
 from datetime import datetime
-
 from pydantic import BaseModel
-from sqlalchemy import Enum
-
-
-class NotificationStatusEnum(Enum):
-    unread = "unread"
-    read = "read"
-
-
-class NotificationTypeEnum(Enum):
-    friend_request = "friend_request"
-    message = "message"
-    notification = "notification"
 
 
 class NotificationBase(BaseModel):
-    sender_id: int
-    receiver_id: int
     message: str
-    notification_type: NotificationTypeEnum
+    read: bool = False
+    notification_type: str = None
 
 
 class NotificationCreate(NotificationBase):
-    pass
+    sender_id: int
+    recipient_id: int
 
 
 class Notification(NotificationBase):
     id: int
-    status: NotificationStatusEnum
-    created_at: datetime
+    sender_id: int
+    recipient_id: int
+    sender: dict
+    recipient: dict
+    timestamp: datetime
+
+
+class UserWithNotifications(dict):
+    pass

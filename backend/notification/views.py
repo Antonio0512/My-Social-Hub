@@ -1,21 +1,26 @@
-from fastapi import HTTPException
-from sqlalchemy import desc
+from datetime import datetime
+
 from sqlalchemy.orm import Session
 
-from backend.user.schemas import User
-
-from backend.notification.models import Notification
+from backend.notification import schemas, models
 
 
-async def get_user_notifications(
-        user_id: int,
-        current_user: User,
+def create_notification(
+        notification_data: schemas.NotificationCreate,
         db: Session
 ):
-    if user_id != current_user.id:
-        raise HTTPException(status_code=403, detail="You are not authorized!")
+    creation_date = datetime.utcnow()
 
-    return await db.query(Notification) \
-        .filter(Notification.receiver_id == user_id) \
-        .order_by(desc(Notification.created_at)) \
-        .all()
+    notification = models.Notification(
+        message=notification_data.message,
+        read=False,
+        notification_type=notification_data.notification_type,
+        sender_id=notification_data.sender_id,
+        recipient_id=notification_data.recipient_id,
+        timestamp=creation_date
+    )
+
+    db.add(notification)
+    db.commit()
+    db.refresh(notification)
+    return notification

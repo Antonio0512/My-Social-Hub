@@ -47,7 +47,7 @@ def remove_friend(
 
     db.delete(friendship)
     db.commit()
-    
+
     return removed_friendship
 
 
