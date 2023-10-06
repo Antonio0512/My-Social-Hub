@@ -1,13 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from sqlalchemy.orm import relationship
-from enum import Enum
 from backend.database import Base
-
-
-class RelationshipStatus(Enum):
-    married = "married"
-    taken = "taken"
-    single = "single"
 
 
 class User(Base):

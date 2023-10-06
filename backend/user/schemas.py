@@ -1,7 +1,16 @@
+from sqlalchemy import Enum
 from pydantic import BaseModel
-from typing import List, Optional, Dict
+from typing import List, Optional
 from backend.post.schemas import PostResponseWithAuthorId
 from backend.friendship.schemas import FriendshipResponse
+
+
+class RelationshipStatus(Enum):
+    married = "married"
+    taken = "taken"
+    single = "single"
+    unknown = "unknown"
+
 
 class UserBase(BaseModel):
     username: str
@@ -10,7 +19,7 @@ class UserBase(BaseModel):
     bio: Optional[str] = None
     current_city: Optional[str] = None
     birth_place: Optional[str] = None
-    relationship_status: Optional[str] = None
+    relationship_status: Optional[RelationshipStatus] = None
     profile_picture: Optional[str] = None
     cover_picture: Optional[str] = None
     is_online: Optional[bool] = False
