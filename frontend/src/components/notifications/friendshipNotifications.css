@@ -1,0 +1,47 @@
+.notificationDropDown {
+    position: absolute;
+    right: 5rem;
+    top: 70%;
+    width: 20rem;
+    max-height: 20rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 1;
+    padding: 0.5rem 0;
+}
+
+.notificationItem {
+    padding: 0.8rem;
+    font-size: 16px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.notificationItem:hover {
+    background-color: #f0f0f0;
+}
+
+.notificationItem + .notificationItem {
+    margin-top: 0.2rem;
+}
+
+.notificationDropDown::-webkit-scrollbar {
+    width: 8px;
+}
+
+.notificationDropDown::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notificationDropDown::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.notificationDropDown.active {
+    display: block;
+}

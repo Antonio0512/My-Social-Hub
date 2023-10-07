@@ -127,7 +127,7 @@ def get_online_users(
 @router.get("/{user_id}/friends", response_model=List[schemas.User])
 def get_user_friends(
         user_id: int,
-        current_user: schemas.User = Depends(auth.get_current_user),
+        _current_user: schemas.User = Depends(auth.get_current_user),
         db: Session = Depends(get_db)
 ):
     return views.get_user_friends(user_id, db)

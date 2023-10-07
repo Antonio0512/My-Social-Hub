@@ -3,6 +3,7 @@ import {Chat, Notifications, Person, Search} from "@mui/icons-material";
 import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState, useEffect} from "react";
 import {AuthContext} from "../../context/autContext";
+import {FriendshipNotification} from "../notifications/FriendshipNotification";
 
 export const Topbar = () => {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ export const Topbar = () => {
     });
 
     const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
     const onChange = (e) => setSearchQuery({...searchQuery, [e.target.name]: e.target.value});
 
@@ -32,9 +34,17 @@ export const Topbar = () => {
         setIsDropdownVisible(!isDropdownVisible);
     };
 
+    const toggleNotification = () => {
+        setIsNotificationVisible(!isNotificationVisible);
+    };
+
     const handleOutsideClick = (event) => {
         if (isDropdownVisible && !event.target.closest(".profileDropdownContainer")) {
             setIsDropdownVisible(false);
+        }
+
+        if (isNotificationVisible && !event.target.closest('.notificationsDropdown')) {
+            setIsNotificationVisible(false);
         }
     };
 
@@ -68,10 +78,13 @@ export const Topbar = () => {
             </div>
             <div className="topbarRight">
                 <div className="topbarIcons">
-                    <div className="topbarIconItem">
+                    <div className="topbarIconItem" onClick={toggleNotification}>
                         <Person/>
                         <span className="topbarIconBadge">1</span>
                     </div>
+                    {isNotificationVisible &&
+                        <FriendshipNotification/>
+                    }
                     <div className="topbarIconItem">
                         <Chat/>
                         <span className="topbarIconBadge">4</span>

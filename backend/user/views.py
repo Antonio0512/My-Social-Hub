@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from fastapi import HTTPException
 from backend import auth
 from backend.user import models, schemas, validators, security
+from backend.friendship.models import Friendship
 
 
 def register_user(
@@ -108,9 +109,11 @@ def get_online_users(db: Session):
 
 
 def get_user_friends(user_id: int, db: Session):
-    user = validators.get_user_by_id(user_id, db)
-
-    friend_ids = [friendship.friend_id for friendship in user.friends]
-    friends = db.query(models.User).filter(models.User.id.in_(friend_ids)).all()
+    friends = (
+        db.query(models.User)
+        .join(Friendship, Friendship.friend_id == models.User.id)
+        .filter(Friendship.user_id == user_id, Friendship.status == 'Friends')
+        .all()
+    )
 
     return friends

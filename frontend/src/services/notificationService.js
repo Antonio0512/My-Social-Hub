@@ -1,14 +1,12 @@
 import axios from "axios";
 
-export const sendFriendRequest = async (sender, receiver, token) => {
+export const getFriendshipNotifications = async (userId, token) => {
     try {
-        const response = await axios.post(
-            "/notifications",
-            JSON.stringify({sender, receiver}),
+        const response = await axios.get(
+            `/api/${userId}/friend-requests`,
             {
                 headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
+                    Authorization: `Bearer ${token}`
                 }
             }
         );
