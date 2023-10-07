@@ -4,6 +4,7 @@ from pydantic import BaseModel
 class FriendshipBase(BaseModel):
     user_id: int
     friend_id: int
+    status: str
 
 
 class FriendshipCreate(FriendshipBase):

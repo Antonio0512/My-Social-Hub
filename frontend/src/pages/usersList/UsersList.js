@@ -5,11 +5,13 @@ import {FriendContext} from "../../context/friendContext";
 import {Topbar} from "../../components/topbar/Topbar";
 import {Link} from "react-router-dom";
 import {TailSpin} from "react-loader-spinner";
+import {AuthErrorMessage} from "../../components/errorMessages/authErrorMessages";
 
 export const UsersList = () => {
     const {users, token, user} = useContext(AuthContext);
     const {getFriendships, removeFriend, sendFriendRequest} = useContext(FriendContext);
 
+    const [error, setError] = useState("");
     const [friendships, setFriendships] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -36,7 +38,7 @@ export const UsersList = () => {
                     "recipient_id": friend.id,
                     "message": `${user.username} sent you a friend request`,
                     "read": "False",
-                    "notification_data": "friend_request",
+                    "notification_type": "friend_request",
                 };
 
                 await sendFriendRequest(requestData, token);
@@ -52,7 +54,7 @@ export const UsersList = () => {
                 );
             }
         } catch (error) {
-            console.error(error);
+            setError(error.response.data.detail);
         }
     };
 
@@ -99,12 +101,17 @@ export const UsersList = () => {
                                             onClick={() => handleFriendAction(currUser, isFriend)}
                                             className="friendButton"
                                         >
-                                            {isFriend ? "Friends" : "+ Add Friend"}
+                                            {isFriend ? (
+                                                currUser.status === "Friends" ? "Friends" : "Requested"
+                                            ) : (
+                                                "+ Add Friend"
+                                            )}
                                         </button>
                                     )}
                                 </div>
                             );
                         })}
+                        <AuthErrorMessage message={error}/>
                     </div>
                 )}
             </div>

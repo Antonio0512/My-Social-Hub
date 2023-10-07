@@ -17,8 +17,6 @@ class Notification(NotificationBase):
     id: int
     sender_id: int
     recipient_id: int
-    sender: dict
-    recipient: dict
     timestamp: datetime
 
 

@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from backend.friendship.models import Friendship
 
 
-def are_friends(
+def get_friendship(
         user_id: int,
         friend_id: int,
         db: Session

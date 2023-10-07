@@ -13,8 +13,8 @@ router = APIRouter()
 @router.post("/friend-request", response_model=schemas.Notification)
 def create_notification(
         recipient: schemas.NotificationCreate,
-        _current_user: User = Depends(get_current_user),
+        current_user: User = Depends(get_current_user),
         db: Session = Depends(get_db)
 
 ):
-    return views.create_notification(recipient, db)
+    return views.create_notification(recipient, current_user, db)
